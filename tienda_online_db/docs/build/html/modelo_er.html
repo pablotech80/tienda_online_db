@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="es" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Modelo Entidad-Relación de la Base de Datos &#8212; documentación de tienda_online_db - 1.0</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=61cd365c" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=4936afed"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=efdbd0b9"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="modelo-entidad-relacion-de-la-base-de-datos">
+<h1>Modelo Entidad-Relación de la Base de Datos<a class="headerlink" href="#modelo-entidad-relacion-de-la-base-de-datos" title="Link to this heading">¶</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">¶</a></h2>
+<p>Este modelo E/R representa el sistema de gestión de una tienda online. El diseño está orientado a capturar
+las principales operaciones del negocio: gestión de productos, clientes, pedidos y proveedores.</p>
+<p>Se utilizaron principios de normalización y buenas prácticas de modelado para asegurar integridad,
+consistencia y escalabilidad del sistema.</p>
+<a class="reference internal image-reference" href="_images/modelo_er.png"><img alt="Diagrama Entidad-Relación" class="align-center" src="_images/modelo_er.png" style="width: 90%;" /></a>
+<p>Puedes descargar el archivo original <cite>.drawio</cite> desde el siguiente enlace:</p>
+<p>🔗 <a class="reference external" href="https://drive.google.com/file/d/1dxkbbJW5Jy9t8baSyVqCOag7OqGZSifv/view?usp=share_link">Abrir en Google Drive</a></p>
+<p>—</p>
+</section>
+<section id="entidades-y-atributos">
+<h2>Entidades y atributos<a class="headerlink" href="#entidades-y-atributos" title="Link to this heading">¶</a></h2>
+<p><strong>CLIENTE</strong></p>
+<ul class="simple">
+<li><p><cite>id_cliente</cite>: Identificador único (PK)</p></li>
+<li><p><cite>nombre</cite>: Nombre del cliente</p></li>
+<li><p><cite>apellido</cite>: Apellido del cliente</p></li>
+<li><p><cite>email</cite>: Correo electrónico</p></li>
+<li><p><cite>fecha_registro</cite>: Fecha de alta en la plataforma</p></li>
+</ul>
+<p><strong>PEDIDO</strong></p>
+<ul class="simple">
+<li><p><cite>id_pedido</cite>: Identificador del pedido (PK)</p></li>
+<li><p><cite>id_cliente</cite>: FK que enlaza con CLIENTE</p></li>
+<li><p><cite>id_estado</cite>: FK que enlaza con ESTADOPEDIDO</p></li>
+<li><p><cite>fecha_pedido</cite>: Fecha del pedido</p></li>
+</ul>
+<p><strong>ESTADOPEDIDO</strong></p>
+<ul class="simple">
+<li><p><cite>id_estado</cite>: Identificador del estado (PK)</p></li>
+<li><p><cite>nombre_estado</cite>: Descripción textual del estado (Pendiente, Enviado, etc.)</p></li>
+</ul>
+<p><strong>PRODUCTO</strong></p>
+<ul class="simple">
+<li><p><cite>id_producto</cite>: Identificador del producto (PK)</p></li>
+<li><p><cite>nombre</cite>: Nombre del producto</p></li>
+<li><p><cite>descripcion</cite>: Descripción del producto</p></li>
+<li><p><cite>precio_unitario</cite>: Precio por unidad</p></li>
+<li><p><cite>stock</cite>: Unidades disponibles</p></li>
+<li><p><cite>id_categoria</cite>: FK hacia CATEGORIA</p></li>
+<li><p><cite>id_proveedor</cite>: FK hacia PROVEEDOR</p></li>
+</ul>
+<p><strong>DETALLEPEDIDO</strong></p>
+<ul class="simple">
+<li><p><cite>id_pedido</cite>: Parte de la clave compuesta (FK)</p></li>
+<li><p><cite>id_producto</cite>: Parte de la clave compuesta (FK)</p></li>
+<li><p><cite>cantidad</cite>: Unidades compradas</p></li>
+<li><p><cite>precio_unitario</cite>: Precio al momento del pedido</p></li>
+</ul>
+<p><strong>CATEGORIA</strong></p>
+<ul class="simple">
+<li><p><cite>id_categoria</cite>: Identificador (PK)</p></li>
+<li><p><cite>nombre_categoria</cite>: Nombre de la categoría</p></li>
+</ul>
+<p><strong>PROVEEDOR</strong></p>
+<ul class="simple">
+<li><p><cite>id_proveedor</cite>: Identificador (PK)</p></li>
+<li><p><cite>nombre_empresa</cite>: Nombre comercial</p></li>
+<li><p><cite>email</cite>: Correo de contacto</p></li>
+<li><p><cite>telefono</cite>: Teléfono</p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="relaciones-y-cardinalidades">
+<h2>Relaciones y cardinalidades<a class="headerlink" href="#relaciones-y-cardinalidades" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>CLIENTE 1:N PEDIDO</strong>: un cliente puede hacer muchos pedidos.</p></li>
+<li><p><strong>PEDIDO 1:N DETALLEPEDIDO</strong>: un pedido puede tener muchos productos.</p></li>
+<li><p><strong>PRODUCTO 1:N DETALLEPEDIDO</strong>: un producto puede estar en muchos pedidos.</p></li>
+<li><p><strong>PRODUCTO N:1 CATEGORIA</strong>: una categoría agrupa muchos productos.</p></li>
+<li><p><strong>PRODUCTO N:1 PROVEEDOR</strong>: un proveedor puede suministrar muchos productos.</p></li>
+<li><p><strong>PEDIDO N:1 ESTADOPEDIDO</strong>: muchos pedidos pueden compartir el mismo estado.</p></li>
+</ul>
+<p>—</p>
+</section>
+<section id="normalizacion">
+<h2>Normalización<a class="headerlink" href="#normalizacion" title="Link to this heading">¶</a></h2>
+<p>El modelo fue normalizado hasta la <strong>tercera forma normal (3FN)</strong>:</p>
+<p><strong>1FN</strong>:
+Todos los atributos son atómicos, sin repetición ni listas. Ejemplo: <cite>stock</cite> es un valor único por producto.</p>
+<p><strong>2FN</strong>:
+En <cite>detallepedido</cite>, la clave es compuesta. Todos los atributos (<cite>cantidad</cite>, <cite>precio_unitario</cite>) dependen de la combinación completa (<cite>id_pedido</cite>, <cite>id_producto</cite>).</p>
+<p><strong>3FN</strong>:
+No hay dependencias transitivas. Por ejemplo, el nombre del estado del pedido no está en la tabla <cite>pedido</cite>, sino referenciado por <cite>id_estado</cite>.</p>
+<p>—</p>
+</section>
+<section id="conclusion">
+<h2>Conclusión<a class="headerlink" href="#conclusion" title="Link to this heading">¶</a></h2>
+<p>Este modelo sirve como base sólida para un sistema de gestión ecommerce, adaptable y preparado para integraciones futuras con frontend, pasarelas de pago, o APIs REST. Toda la lógica del negocio está correctamente representada, manteniendo coherencia y escalabilidad desde la base de datos.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">tienda_online_db</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navegación</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Búsqueda rápida</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Ir a" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2025, Pablo Techera.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.3.7</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/modelo_er.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
