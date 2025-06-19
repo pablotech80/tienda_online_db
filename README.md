@@ -16,7 +16,7 @@ Este proyecto abarca:
 - Seguridad con roles y privilegios
 - Programación con funciones PL/pgSQL
 - Integración con Python (psycopg2)
-- Documentación técnica completa
+- Documentación técnica completa con Sphinx 
 
 ## Requisitos
 
@@ -95,6 +95,45 @@ python tienda_online_db/tienda_online.py
 - Clientes con mayor número de pedidos
 - Pedidos pendientes por cliente y fecha
 - Stock por debajo del umbral definido (con trigger)
+
+## Documentación del Proyecto – Sphinx
+
+Este proyecto incluye una documentación técnica generada con **Sphinx** y el tema **Furo**.
+
+Para visualizar la documentación:
+---------------------------------
+No necesitas instalar nada. Simplemente abre el siguiente archivo en tu navegador:
+```
+docs/build/html/index.html
+```
+
+Esto te dará acceso a una versión navegable y visualmente optimizada de toda la documentación del sistema `tienda_online`, incluyendo:
+
+- Diagrama E/R
+- Scripts SQL
+- Triggers, funciones y roles
+- Consultas avanzadas
+- Integración con Python
+- Capturas de pantalla reales
+
+## Documentación del Proyecto – Sphinx
+
+Este proyecto incluye una documentación técnica generada con **Sphinx** y el tema **Furo**.
+
+Para visualizar la documentación:
+---------------------------------
+No necesitas instalar nada. Simplemente abre el siguiente archivo en tu navegador:
+```
+docs/build/html/index.html
+```
+Esto te dará acceso a una versión navegable y visualmente optimizada de toda la documentación del sistema `tienda_online`, incluyendo:
+
+- Diagrama E/R
+- Scripts SQL
+- Triggers, funciones y roles
+- Consultas avanzadas
+- Integración con Python
+- Capturas de pantalla reales
 
 ## Créditos
 
