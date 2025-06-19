@@ -4,17 +4,24 @@ CARGA DE DATOS SINTÉTICOS Y ORGÁNICOS (Mockaroo + Manual)
 =========================================================
 
 Objetivo de esta fase:
---------------------------
+----------------------
 Insertar datos en todas las tablas del modelo `tienda_online`, usando dos enfoques:
 
-1. **Carga Sintética** con Mockaroo (datos generados artificialmente)
-2. **Carga Orgánica** manual para pruebas controladas
+1. **Carga Sintética** con Mockaroo (datos generados artificialmente).
+2. **Carga Orgánica** manual para pruebas controladas.
 
----------------------------------------
-1. CARGA DE DATOS SINTÉTICOS CON MOCKAROO
----------------------------------------
+1. Carga de Datos Sintéticos con Mockaroo
+-----------------------------------------
 
- Herramienta usada: https://www.mockaroo.com/
+Mockaroo configurando categorías
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. image:: img/mockaroo_categoria.png
+    :width: 800px
+    :align: center
+    :alt: Mockaroo configurando categorías
+
+
+Herramienta usada: https://www.mockaroo.com/
 
 Tablas generadas:
 
@@ -44,7 +51,7 @@ Sincronización de precios:
 
 Después de insertar, se actualizó `detallepedido.precio_unitario` con:
 
-.. code-block:: sql
+.. code-block:: postgresql
 
     UPDATE detallepedido dp
     SET precio_unitario = p.precio_unitario
@@ -53,15 +60,14 @@ Después de insertar, se actualizó `detallepedido.precio_unitario` con:
 
 Esto garantiza coherencia entre productos y pedidos.
 
----------------------------------------
-2. CARGA DE DATOS ORGÁNICOS (MANUAL)
----------------------------------------
+2. Carga de Datos Orgánicos (Manual)
+------------------------------------
 
 Objetivo: tener registros que sirvan como referencia en capturas de pantalla y pruebas controladas.
 
 Ejemplo insertado:
 
-.. code-block:: sql
+.. code-block:: postgresql
 
     INSERT INTO cliente (id_cliente, nombre, apellido, email, fecha_registro)
     VALUES (1001, 'Pablo', 'Techera', 'ptechera@ejemplo.com', CURRENT_DATE);
@@ -73,4 +79,48 @@ Ejemplo insertado:
     VALUES (1001, 1001, 1, CURRENT_DATE);
 
     INSERT INTO detallepedido (id_pedido, id_producto, cantidad, precio_unitario)
-    VALUES (1001, 1001, 1, 799.99
+    VALUES (1001, 1001, 1, 799.99);
+
+Inserción directa de categorías en SQL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. image:: img/insercion_manual_categoria.png
+   :width: 800px
+   :align: center
+   :alt: Inserción directa de categorías en SQL
+
+3. Resumen de Proceso y Validación
+----------------------------------
+
+Para simular un entorno realista, se generaron datos sintéticos con la herramienta Mockaroo.
+
+Esquemas utilizados:
+
+- **cliente**: nombre, apellido, email, fecha_registro.
+- **producto**: nombre, descripción, precio_unitario, stock, id_categoria, id_proveedor.
+- **pedido**: id_cliente, fecha_pedido, id_estado.
+- **detallepedido**: id_pedido, id_producto, cantidad, precio_unitario.
+
+Pasos realizados:
+
+1. Diseño de los esquemas directamente en Mockaroo.
+2. Exportación del conjunto de datos en formato SQL.
+3. Edición manual de los ficheros SQL para garantizar:
+   - Codificación UTF-8.
+   - Comillas simples en campos de tipo texto.
+   - Orden correcto de inserción (categoría → proveedor → cliente → producto → pedido → detallepedido).
+4. Ejecución del script `insertar_datos.sql` en PostgreSQL.
+
+Validación:
+
+- Se ejecutaron conteos por tabla usando `SELECT COUNT(*) FROM tabla;` para validar el número de registros.
+- Se verificó visualmente desde DBeaver.
+- Se capturaron registros para pruebas posteriores en funciones y consultas avanzadas.
+
+Volumen total de datos insertados:
+
+- Clientes: 50
+- Productos: 50
+- Pedidos: 150
+- Detalles de pedido: 200
+
+Esta combinación de datos orgánicos y sintéticos permite realizar pruebas robustas, manteniendo control específico sobre ciertos registros clave.
