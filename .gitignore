@@ -1,0 +1,13 @@
+# IDEs
+.idea/
+.vscode/
+
+# Entornos virtuales
+.venv/
+
+# Archivos Python compilados
+__pycache__/
+*.py[cod]
+
+# Resultados de documentación
+build/
